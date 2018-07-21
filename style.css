@@ -6,6 +6,10 @@
 
 html {
   --colPrimary: #b4d455;
+  --colRods: lightgray;
+  --colSlices: green;
+
+  --rodWidth: 120px;
 }
 
 body {
@@ -19,4 +23,32 @@ header, footer {
   text-align: center;
   background: var(--colPrimary);
   padding: 1rem;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rod-wrapper {
+  margin: 0 1rem;
+}
+
+.rod {
+  width: var(--rodWidth);
+  height: 400px;
+  max-height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: linear-gradient(to right, transparent, transparent calc(50% - .5rem), var(--colRods) calc(50% - .5rem), var(--colRods) calc(50% + .5rem), transparent calc(50% + .5rem));
+  border-bottom: 1rem solid var(--colRods);
+}
+
+.slice {
+  width: var(--rodWidth);
+  height: 2rem;
+  margin: 2px 0;
+  background: var(--colSlices);
 }

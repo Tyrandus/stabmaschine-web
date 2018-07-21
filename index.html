@@ -18,9 +18,15 @@
   </header>
 
   <main>
-    <svg width="800px" height="500px" viewbox="0 0 800 500">
-        <!-- TODO: Add content -->
-    </svg>
+    <section v-for="rod in rods" class="rod-wrapper">
+      <div class="rod">
+        <div v-for="x in rod.sliceCount" class="slice"></div>
+      </div>
+      <div class="actions">
+        <button @click="add(rod)">+</button>
+        <button @click="remove(rod)">-</button>
+      </div>
+    </section>
   </main>
 
   <footer id="footer">
