@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  --colPrimary: #b4d455;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+header, footer {
+  text-align: center;
+  background: var(--colPrimary);
+  padding: 1rem;
+}
