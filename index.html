@@ -12,25 +12,36 @@
 
 </head>
 <body>
-  <header>
-    <h1>Stabmaschine</h1>
-    <p>Repräsentation der natürlichen Zahlen</p>
-  </header>
+  <div id="app">
+    <header>
+      <h1>Stabmaschine</h1>
+      <p>Repräsentation der natürlichen Zahlen</p>
+    </header>
 
-  <main>
-    <section v-for="rod in rods" class="rod-wrapper">
-      <div class="rod">
-        <div v-for="x in rod.sliceCount" class="slice"></div>
-      </div>
-      <div class="actions">
-        <button @click="add(rod)">+</button>
-        <button @click="remove(rod)">-</button>
-      </div>
-    </section>
-  </main>
+    <aside>
+      <h2>Steuerung</h2>
+      <button @click="addRod" class="btn-block">Stab hinzufügen</button>
+      <button @click="removeRod" class="btn-block">Stab entfernen</button>
+    </aside>
 
-  <footer id="footer">
-    &copy; {{ currentYear }} Florian Knoch
-  </footer>
+    <main>
+      <section
+        v-for="(rod, index) in rods"
+        v-bind:class="{ 'rod-wrapper': true, active: index == activeRodIndex }"
+        @click="activeRodIndex = index">
+        <div class="rod">
+          <div v-for="x in rod.sliceCount" class="slice"></div>
+        </div>
+        <div class="actions">
+          <button @click="remove(rod)">-</button>
+          <button @click="add(rod)">+</button>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      &copy; {{ currentYear }} Florian Knoch
+    </footer>
+  </div>
 </body>
 </html>

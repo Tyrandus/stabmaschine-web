@@ -5,34 +5,71 @@
 }
 
 html {
-  --colPrimary: #b4d455;
-  --colRods: lightgray;
-  --colSlices: green;
+  --colPrimary: rgb(22, 45, 78);
+  --colLight: #f4f4f4;
+  --colRods: #979797;
+  --colSlices: rgb(22, 101, 204);
+  --colAsideBackground: #dddddd;
+  --colButton: rgb(0, 142, 224);
+  --colHighlight: rgb(127, 203, 247);
 
-  --rodWidth: 120px;
+  --rodWidth: 160px;
 }
 
 body {
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+}
+
+#app {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 300px 1fr;
+  grid-template-areas:
+    "header header"
+    "aside  main"
+    "footer footer";
 }
 
 header, footer {
   text-align: center;
   background: var(--colPrimary);
+  color: var(--colLight);
   padding: 1rem;
 }
 
+header {
+  grid-area: header;
+}
+
+footer {
+  grid-area: footer;
+}
+
+aside {
+  grid-area: aside;
+  background: var(--colAsideBackground);
+  padding: 2rem;
+}
+
 main {
+  width: 100%;
+  overflow-x: scroll;
+  grid-area: main;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  padding: 4rem;
 }
 
 .rod-wrapper {
-  margin: 0 1rem;
+  margin: 0 .5rem;
+  padding: .5rem;
+}
+
+.rod-wrapper.active {
+  /* background: var(--colLight); */
+  box-shadow: 0 0 15px var(--colHighlight);
 }
 
 .rod {
@@ -51,4 +88,26 @@ main {
   height: 2rem;
   margin: 2px 0;
   background: var(--colSlices);
+}
+
+.actions {
+  display: grid;
+  margin-top: 2rem;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2px;
+}
+
+button {
+  display: inline-block;
+  padding: .5rem 1rem;
+  margin: 2px 0;
+  border: none;
+  background: var(--colButton);
+  color: var(--colLight);
+  box-shadow: 0 8px 7px -5px rgba(0, 0, 0, .2);
+}
+
+button.btn-block {
+  display: block;
+  width: 100%;
 }
