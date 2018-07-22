@@ -18,29 +18,58 @@
       <p>Repräsentation der natürlichen Zahlen</p>
     </header>
 
-    <aside>
+    <aside v-bind:class="{ active: isManualActive }">
       <h2>Steuerung</h2>
-      <button @click="addRod" class="btn-block">Stab hinzufügen</button>
-      <button @click="removeRod" class="btn-block">Stab entfernen</button>
+
+      <ul>
+        <li>
+          <kbd>&#8680;</kbd> oder <kbd>D</kbd>: Nächsten Stab fokussieren
+        </li>
+        <li>
+          <kbd>&#8678;</kbd> oder <kbd>A</kbd>: Vorherigen Stab fokussieren
+        </li>
+        <li>
+          <kbd>&#8679;</kbd> oder <kbd>W</kbd>: Scheibe zu aktivem Stab hinzufügen
+        </li>
+        <li>
+          <kbd>&#8681;</kbd> oder <kbd>S</kbd>: Scheibe von aktivem Stab entfernen
+        </li>
+        <li>
+          <kbd>+</kbd>: Stab hinzufügen
+        </li>
+        <li>
+          <kbd>Delete</kbd>, <kbd>Backspace</kbd> oder <kbd>-</kbd>: Ausgewählten Stab löschen
+        </li>
+      </ul>
     </aside>
+
+    <div @click="hideManual()" v-bind:class="{ curtain: true, active: isManualActive }"></div>
 
     <main>
       <section
         v-for="(rod, index) in rods"
         v-bind:class="{ 'rod-wrapper': true, active: index == activeRodIndex }"
         @click="activeRodIndex = index">
+
         <div class="rod">
           <div v-for="x in rod.sliceCount" class="slice"></div>
         </div>
+
         <div class="actions">
-          <button @click="remove(rod)">-</button>
-          <button @click="add(rod)">+</button>
+          <button @click="remove(rod)" class="leftButton">&#9866;</button>
+          <button @click="add(rod)" class="rightButton">&#10010;</button>
         </div>
+
+        <button v-if="index == activeRodIndex" @click="removeRod(index)" class="removeRod">&#10008;</button>
+      </section>
+
+      <section class="addRod-button-wrapper">
+        <button @click="addRod" class="addRod">&#10010;</button>
       </section>
     </main>
 
     <footer>
-      &copy; {{ currentYear }} Florian Knoch
+      &copy; {{ currentYear }} Florian Knoch - <a href="#" @click="showManual()">Bedienungshinweise</a>
     </footer>
   </div>
 </body>

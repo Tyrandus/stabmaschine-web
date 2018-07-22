@@ -1,3 +1,15 @@
+@font-face {
+  font-family: "OpenSans";
+  font-weight: regular;
+  src: url('fonts/OpenSans-Regular.ttf');
+}
+
+@font-face {
+  font-family: "OpenSans";
+  font-weight: bold;
+  src: url('fonts/OpenSans-Bold.ttf');
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,30 +17,30 @@
 }
 
 html {
-  --colPrimary: rgb(22, 45, 78);
+  --colPrimary: rgb(32, 45, 150);
   --colLight: #f4f4f4;
   --colRods: #979797;
-  --colSlices: rgb(22, 101, 204);
-  --colAsideBackground: #dddddd;
+  --colSlices: rgb(0, 142, 224);
+  --colAsideBackground: #eeeeee;
   --colButton: rgb(0, 142, 224);
   --colHighlight: rgb(127, 203, 247);
+  --colWhite: white;
 
   --rodWidth: 160px;
+  --rodHeight: 50vh;
 }
 
 body {
   height: 100vh;
+  font-family: "Open Sans";
 }
 
 #app {
   height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  grid-template-columns: 300px 1fr;
   grid-template-areas:
-    "header header"
-    "aside  main"
-    "footer footer";
+    "header" "main" "footer";
 }
 
 header, footer {
@@ -46,35 +58,79 @@ footer {
   grid-area: footer;
 }
 
+footer a:link,
+footer a:hover,
+footer a:active,
+footer a:visited {
+  color: var(--colLight);
+}
+
 aside {
-  grid-area: aside;
+  display: none;
   background: var(--colAsideBackground);
   padding: 2rem;
+  box-shadow: 0 20px 10px -10px rgba(0, 0, 0, .2);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+.curtain {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, .9);
+  z-index: 2;
+}
+
+aside.active, .curtain.active {
+  display: block;
+}
+
+aside kbd {
+  display: inline-block;
+  padding: .2rem .5rem;
+}
+
+aside h2 {
+  margin-bottom: 2rem;
+}
+
+aside ul {
+  list-style-type: none;
+}
+
+aside ul li {
+  margin: 0.5rem 0;
 }
 
 main {
-  width: 100%;
+  width: 100vw;
   overflow-x: scroll;
   grid-area: main;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(100, 1fr);
   padding: 4rem;
 }
 
 .rod-wrapper {
   margin: 0 .5rem;
   padding: .5rem;
+  position: relative;
 }
 
 .rod-wrapper.active {
-  /* background: var(--colLight); */
   box-shadow: 0 0 15px var(--colHighlight);
 }
 
 .rod {
   width: var(--rodWidth);
-  height: 400px;
+  height: var(--rodHeight);
   max-height: 90%;
   display: flex;
   flex-direction: column;
@@ -97,17 +153,57 @@ main {
   grid-gap: 2px;
 }
 
-button {
+.actions .leftButton {
+  border-radius: 2rem 0 0 2rem;
+}
+
+.actions .rightButton {
+  border-radius: 0 2rem 2rem 0;
+}
+
+button, kbd {
   display: inline-block;
   padding: .5rem 1rem;
   margin: 2px 0;
-  border: none;
-  background: var(--colButton);
-  color: var(--colLight);
+  border: 2px solid var(--colButton);
+  color: var(--colButton);
+  background-color: var(--colWhite);
   box-shadow: 0 8px 7px -5px rgba(0, 0, 0, .2);
+  font-weight: bold;
 }
 
 button.btn-block {
   display: block;
   width: 100%;
+}
+
+button.removeRod {
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  line-height: 12px;
+}
+
+.addRod-button-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button.addRod {
+  width: 2rem;
+  height: 2rem;
+  margin: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  line-height: 12px;
 }
