@@ -7,8 +7,13 @@
   <title>Stabmaschine</title>
 
   <script src="js/vue.js"></script>
+  <script src="js/codemirror.js"></script>
+  <script src="js/codemirror-javascript.js"></script>
   <script src="js/app.js"></script>
-  <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="css/codemirror.css">
+  <link rel="stylesheet" href="css/codemirror-mdn-like.css">
+  <link rel="stylesheet" href="css/style.css">
 
 </head>
 <body>
@@ -18,7 +23,7 @@
       <p>Repräsentation der natürlichen Zahlen</p>
     </header>
 
-    <aside v-bind:class="{ active: isManualActive }">
+    <section v-bind:class="{ active: isManualActive, 'info-popup': true }">
       <h2>Steuerung</h2>
 
       <ul>
@@ -41,7 +46,7 @@
           <kbd>Delete</kbd>, <kbd>Backspace</kbd> oder <kbd>-</kbd>: Ausgewählten Stab löschen
         </li>
       </ul>
-    </aside>
+    </section>
 
     <div @click="hideManual()" v-bind:class="{ curtain: true, active: isManualActive }"></div>
 
@@ -67,6 +72,15 @@
         <button @click="addRod" class="addRod">&#10010;</button>
       </section>
     </main>
+
+    <aside class="editor">
+      <h2>Algorithmus</h2>
+      <!-- <p>TODO: Add some information</p> -->
+      <!-- <p class="error">TODO: Add error information</p> -->
+      <textarea id="editor"></textarea>
+      <button @click="runCode()">Ausführen</button>
+      <!-- TODO: Auf Strg + R ausführen -->
+    </aside>
 
     <footer>
       &copy; {{ currentYear }} Florian Knoch - <a href="#" @click="showManual()">Bedienungshinweise</a>

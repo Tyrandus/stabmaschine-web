@@ -18,16 +18,17 @@
 
 html {
   --colPrimary: rgb(32, 45, 150);
-  --colLight: #f4f4f4;
+  --colLight: #e2e2e2;
   --colRods: #979797;
   --colSlices: rgb(0, 142, 224);
-  --colAsideBackground: #eeeeee;
+  --colInfoPopupBackground: #eeeeee;
   --colButton: rgb(0, 142, 224);
   --colHighlight: rgb(127, 203, 247);
   --colWhite: white;
 
   --rodWidth: 160px;
   --rodHeight: 50vh;
+  --editorWidth: 30vw;
 }
 
 body {
@@ -39,8 +40,9 @@ body {
   height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
+  grid-template-columns: calc(100vw - var(--editorWidth)) var(--editorWidth);
   grid-template-areas:
-    "header" "main" "footer";
+    "header header" "main editor" "footer footer";
 }
 
 header, footer {
@@ -65,9 +67,9 @@ footer a:visited {
   color: var(--colLight);
 }
 
-aside {
+.info-popup {
   display: none;
-  background: var(--colAsideBackground);
+  background: var(--colInfoPopupBackground);
   padding: 2rem;
   box-shadow: 0 20px 10px -10px rgba(0, 0, 0, .2);
   position: absolute;
@@ -88,29 +90,30 @@ aside {
   z-index: 2;
 }
 
-aside.active, .curtain.active {
+.info-popup.active, .curtain.active {
   display: block;
 }
 
-aside kbd {
+.info-popup kbd {
   display: inline-block;
   padding: .2rem .5rem;
 }
 
-aside h2 {
+.info-popup h2 {
   margin-bottom: 2rem;
 }
 
-aside ul {
+.info-popup ul {
   list-style-type: none;
 }
 
-aside ul li {
+.info-popup ul li {
   margin: 0.5rem 0;
 }
 
 main {
-  width: 100vw;
+  grid-area: main;
+  width: calc(100vw - var(--editorWidth));
   overflow-x: scroll;
   grid-area: main;
   display: grid;
@@ -206,4 +209,21 @@ button.addRod {
   justify-content: center;
   border-radius: 50%;
   line-height: 12px;
+}
+
+.editor {
+  grid-area: editor;
+  padding: 2rem;
+  background: var(--colLight);
+  height: 100%;
+}
+
+.editor h2 {
+  margin-bottom: 2rem;
+}
+
+.CodeMirror-wrap {
+  display: block;
+  border: 1px solid black;
+  height: 40vh;
 }
