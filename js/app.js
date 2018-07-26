@@ -4,10 +4,10 @@ window.onload = function () {
   function remove_global (index, structure) {
     let rod
     try {
-      rod = structure.rods[index]
+      rod = structure[index]
     } catch (e) {
       throw {
-        message: `Argument für remove() muss eine Zahl zwischen 1 und ${structure.rods.length} sein.`
+        message: `Argument für remove() muss eine Zahl zwischen 1 und ${structure.length} sein.`
       }
     }
 
@@ -17,13 +17,12 @@ window.onload = function () {
   }
 
   function add_global (index, structure) {
-    console.log(index)
     let rod
     try {
-      rod = structure.rods[index]
+      rod = structure[index]
     } catch (e) {
       throw {
-        message: `Argument für add() muss eine Zahl zwischen 1 und ${structure.rods.length} sein.`
+        message: `Argument für add() muss eine Zahl zwischen 1 und ${structure.length} sein.`
       }
     }
 
@@ -33,10 +32,10 @@ window.onload = function () {
   function isEmpty_global(index, structure) {
     let rod
     try {
-      rod = structure.rods[index]
+      rod = structure[index]
     } catch (e) {
       throw {
-        message: `Argument für add() muss eine Zahl zwischen 1 und ${structure.rods.length} sein.`
+        message: `Argument für add() muss eine Zahl zwischen 1 und ${structure.length} sein.`
       }
     }
 
@@ -97,12 +96,12 @@ window.onload = function () {
           case 'ArrowUp':
           case 'w':
             event.preventDefault()
-            this.add(this.rods[this.activeRodIndex])
+            this.add(this.activeRodIndex)
             break
           case 'ArrowDown':
           case 's':
             event.preventDefault()
-            this.remove(this.rods[this.activeRodIndex])
+            this.remove(this.activeRodIndex)
             break
           case '+':
             this.addRod()
@@ -129,9 +128,9 @@ window.onload = function () {
           let context = this
           let expressions = []
 
-          let phantom = { rods: [] }
+          let phantom = []
           context.rods.forEach(function (rod) {
-            phantom.rods.push({ sliceCount: rod.sliceCount })
+            phantom.push({ sliceCount: rod.sliceCount })
           })
 
           const TIMEOUT = 400
