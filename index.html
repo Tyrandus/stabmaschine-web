@@ -61,8 +61,8 @@
         </div>
 
         <div class="actions">
-          <button @click="remove(rod)" class="leftButton">&#9866;</button>
-          <button @click="add(rod)" class="rightButton">&#10010;</button>
+          <button @click="remove(index)" class="leftButton">&#9866;</button>
+          <button @click="add(index)" class="rightButton">&#10010;</button>
         </div>
 
         <button v-if="index == activeRodIndex" @click="removeRod(index)" class="removeRod">&#10008;</button>

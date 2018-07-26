@@ -1,6 +1,48 @@
 window.onload = function () {
   let codeEditor;
 
+  function remove_global (index, structure) {
+    let rod
+    try {
+      rod = structure.rods[index]
+    } catch (e) {
+      throw {
+        message: `Argument für remove() muss eine Zahl zwischen 1 und ${structure.rods.length} sein.`
+      }
+    }
+
+    if (!isEmpty_global(index, structure)) {
+      rod.sliceCount--
+    }
+  }
+
+  function add_global (index, structure) {
+    console.log(index)
+    let rod
+    try {
+      rod = structure.rods[index]
+    } catch (e) {
+      throw {
+        message: `Argument für add() muss eine Zahl zwischen 1 und ${structure.rods.length} sein.`
+      }
+    }
+
+    rod.sliceCount++
+  }
+
+  function isEmpty_global(index, structure) {
+    let rod
+    try {
+      rod = structure.rods[index]
+    } catch (e) {
+      throw {
+        message: `Argument für add() muss eine Zahl zwischen 1 und ${structure.rods.length} sein.`
+      }
+    }
+
+    return rod.sliceCount <= 0
+  }
+
   const v = new Vue({
     el: '#app',
     data: {
@@ -17,34 +59,17 @@ window.onload = function () {
       currentYear: () => (new Date()).getFullYear()
     },
     methods: {
-      add: function (rod) {
-        if (!rod || !(typeof rod.sliceCount === "number") || rod.sliceCount < 0) {
-          throw {
-            message: `Argument für add() muss eine Zahl zwischen 0 und ${this.rods.length - 1} sein.`
-          }
-        }
-        rod.sliceCount++
+      add: function (index) {
+        add_global(index, this.rods)
       },
-      remove: function (rod) {
-        if (!rod || !(typeof rod.sliceCount === "number") || rod.sliceCount < 0) {
-          throw {
-            message: `Argument für remove() muss eine Zahl zwischen 0 und ${this.rods.length - 1} sein.`
-          }
-        }
-        if (!this.isEmpty(rod)) {
-          rod.sliceCount--
-        }
+      remove: function (index) {
+        remove_global(index, this.rods)
+      },
+      isEmpty: function (index) {
+        return isEmpty_global(index, this.rods)
       },
       addRod: function () {
         this.rods.push({ sliceCount: 0 })
-      },
-      isEmpty: function (rod) {
-        if (!rod || !(typeof rod.sliceCount === "number") || rod.sliceCount < 0) {
-          throw {
-            message: `Argument für isEmpty() muss eine Zahl zwischen 0 und ${this.rods.length - 1} sein.`
-          }
-        }
-        return rod.sliceCount <= 0
       },
       removeRod: function (index) {
         if (index < this.rods.length) {
@@ -102,26 +127,52 @@ window.onload = function () {
 
         try {
           let context = this
-          let timeout = 400
+          let expressions = []
 
-          function sleep(ms) {
-            let start = Date.now()
-            while (Date.now() - start <= ms);
-          }
+          let phantom = { rods: [] }
+          context.rods.forEach(function (rod) {
+            phantom.rods.push({ sliceCount: rod.sliceCount })
+          })
+
+          const TIMEOUT = 400
+          const REMOVE = 'remove'
+          const ADD = 'add'
 
           // TODO: Implement interrupt
+          // let remove = (arg) => context.remove(context.rods[arg - 1])
+          // let add = (arg) => context.add(context.rods[arg - 1])
+          // let isEmpty = (args) => context.isEmpty(context.rods[args - 1])
 
-          let remove = (arg) => {
-            sleep(timeout)
-            context.remove(context.rods[arg - 1])
+          function remove (arg) {
+            remove_global(arg - 1, phantom)
+
+            expressions.push({
+              action: REMOVE,
+              index: arg - 1
+            })
           }
-          let add = (arg) => context.add(context.rods[arg - 1])
-          let isEmpty = (args) => context.isEmpty(context.rods[args - 1])
+
+          function add (arg) {
+            add_global(arg - 1, phantom)
+
+            expressions.push({
+              action: ADD,
+              index: arg - 1
+            })
+          }
+
+          function isEmpty (arg) {
+            return isEmpty_global(arg - 1, phantom)
+          }
 
           code = code.replace(/((NOT)|(not)|(Not))[\t\n]*/, '!')
           eval(code)
+
+          // TODO: Animate expressions
+          console.log(expressions)
+
         } catch (e) {
-          // TODO: Handle
+          // TODO: Output
           console.error(e.message)
         }
       }
