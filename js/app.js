@@ -80,6 +80,7 @@ window.onload = function () {
       },
       keyPressed: function (event) {
         // TODO: Check for consistency throughout the OSs
+        // TODO: Add shortcut to target code area and to run code
         if (event.target.nodeName === "TEXTAREA") return;
 
         switch (event.key) {
@@ -122,7 +123,6 @@ window.onload = function () {
       },
       runCode: async function () {
         let code = codeEditor.getValue();
-        let document, window = "";
 
         try {
           let context = this
@@ -136,11 +136,6 @@ window.onload = function () {
           const TIMEOUT = 400
           const REMOVE = 'remove'
           const ADD = 'add'
-
-          // TODO: Implement interrupt
-          // let remove = (arg) => context.remove(context.rods[arg - 1])
-          // let add = (arg) => context.add(context.rods[arg - 1])
-          // let isEmpty = (args) => context.isEmpty(context.rods[args - 1])
 
           function remove (arg) {
             remove_global(arg - 1, phantom)
@@ -165,14 +160,31 @@ window.onload = function () {
           }
 
           code = code.replace(/((NOT)|(not)|(Not))[\t\n]*/, '!')
-          eval(code)
+          eval(code);
 
-          // TODO: Animate expressions
-          console.log(expressions)
+          // TODO: Implement max run time
+          // TODO: Enable viewer to change playback speed
+          // TODO: Add language documentation
+          // TODO: Make algorithm panel invisible
+
+          (function parseNextExpression (expressions) {
+            if (expressions.length == 0) return;
+            expression = expressions.shift()
+
+            switch (expression.action) {
+              case REMOVE:
+                context.remove(expression.index)
+                break
+              case ADD:
+                context.add(expression.index)
+            }
+
+            setTimeout(() => parseNextExpression(expressions), TIMEOUT)
+          })(expressions)
 
         } catch (e) {
           // TODO: Output
-          console.error(e.message)
+          console.log(e.message)
         }
       }
     }
