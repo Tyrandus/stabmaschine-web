@@ -24,28 +24,95 @@
     </header>
 
     <section v-bind:class="{ active: isManualActive, 'info-popup': true }">
-      <h2>Steuerung</h2>
+      <article class="shortcut-instruction">
+        <h3>Tastatursteuerung</h3>
+        <ul>
+          <li>
+            <kbd>&#8680;</kbd> oder <kbd>D</kbd>: Nächsten Stab fokussieren
+          </li>
+          <li>
+            <kbd>&#8678;</kbd> oder <kbd>A</kbd>: Vorherigen Stab fokussieren
+          </li>
+          <li>
+            <kbd>&#8679;</kbd> oder <kbd>W</kbd>: Scheibe zu aktivem Stab hinzufügen
+          </li>
+          <li>
+            <kbd>&#8681;</kbd> oder <kbd>S</kbd>: Scheibe von aktivem Stab entfernen
+          </li>
+          <li>
+            <kbd>+</kbd>: Stab hinzufügen
+          </li>
+          <li>
+            <kbd>Delete</kbd>, <kbd>Backspace</kbd> oder <kbd>-</kbd>: Ausgewählten Stab löschen
+          </li>
+          <li>
+            <kbd>Ctrl</kbd> und <kbd>R</kbd>: Algorithmus ausführen
+          </li>
+        </ul>
+      </article>
 
-      <ul>
-        <li>
-          <kbd>&#8680;</kbd> oder <kbd>D</kbd>: Nächsten Stab fokussieren
-        </li>
-        <li>
-          <kbd>&#8678;</kbd> oder <kbd>A</kbd>: Vorherigen Stab fokussieren
-        </li>
-        <li>
-          <kbd>&#8679;</kbd> oder <kbd>W</kbd>: Scheibe zu aktivem Stab hinzufügen
-        </li>
-        <li>
-          <kbd>&#8681;</kbd> oder <kbd>S</kbd>: Scheibe von aktivem Stab entfernen
-        </li>
-        <li>
-          <kbd>+</kbd>: Stab hinzufügen
-        </li>
-        <li>
-          <kbd>Delete</kbd>, <kbd>Backspace</kbd> oder <kbd>-</kbd>: Ausgewählten Stab löschen
-        </li>
-      </ul>
+      <article class="editor-instruction">
+        <h3>Semantik</h3>
+
+        Die Stabmaschine erlaubt drei Befehle:
+        <ul>
+          <li>
+            <code>add(index)</code> - fügt dem Stab mit Nummer
+            <code>index</code> (beginnend bei 1) eine Scheibe hinzu.</li>
+          <li>
+            <code>remove(index)</code> - entfernt eine Scheibe von dem Stab mit Nummer
+            <code>index</code> (beginnend bei 1).</li>
+          <li>
+            <code>isEmpty(index)</code> - gibt
+            <code>true</code> zurück, wenn der Stab mit Nummer
+            <code>index</code> leer ist, und
+            <code>false</code> andernfalls.</li>
+        </ul>
+      </article>
+
+      <article class="editor-instruction">
+        <h3>Syntax</h3>
+        <ul>
+          <li>Die Nummerierung der Stäbe beginnt bei eins.</li>
+          <li>Die für Algorithmen verwendete Syntax orientiert sich an Java.</li>
+          <li>
+            Es gibt <code>while</code>-Schleifen und <code>if</code>-Verzweigungen (mit <code>else if</code> und <code>else</code>). Die Bedingung wird hierbei mit runden, der Rumpf mit geschweiften Klammern umschlossen.
+          </li>
+          <li>
+            <code>for</code>-Schleifen und gesonderte Variablen stehen bei der Stabmaschine nicht zur Verfügung.
+          </li>
+          <li>
+            Die Negation eines Wahrheitswertes lässt sich durch <code>!BOOLEAN</code> bzw.
+            <code>not BOOLEAN</code> darstellen.
+          </li>
+          <li>Strichpunkte können verwendet werden, sind aber nicht zwingend notwendig.</li>
+        </ul>
+      </article>
+
+      <article class="editor-instruction">
+        <h3>Beispielalgorithmus</h3>
+        <p>Zur Verdeutlichung der Regeln hier ein sehr einfacher Beispielalgorithmus:</p>
+
+        <textarea name="" id="editor-sample-algorithm" cols="20" rows="10">
+
+while (!isEmpty(1)) {
+  remove(1)
+  add(2)
+  add(2)
+}
+        </textarea>
+
+        <script>
+        codeEditor = CodeMirror.fromTextArea(document.getElementById('editor-sample-algorithm'), {
+            mode: 'javascript',
+            lineNumbers: true,
+            theme: 'mdn-like',
+            lineWrapping: true,
+            readOnly: true
+          })
+        </script>
+
+      </article>
     </section>
 
     <div @click="hideManual()" v-bind:class="{ curtain: true, active: isManualActive }"></div>
@@ -75,15 +142,15 @@
 
     <aside class="editor">
       <h2>Algorithmus</h2>
-      <!-- <p>TODO: Add some information</p> -->
-      <!-- <p class="error">TODO: Add error information</p> -->
       <textarea id="editor"></textarea>
-      <button @click="runCode()">Ausführen</button>
-      <!-- TODO: Auf Strg + R ausführen -->
+
+      <p v-for="errorMessage in errorMessages" class="error" v-html="errorMessage"></p>
+      <button @click="runCode()" class="runButton">Ausführen</button>
     </aside>
 
     <footer>
       &copy; {{ currentYear }} Florian Knoch - <a href="#" @click="showManual()">Bedienungshinweise</a>
+      <!-- TODO: Add imprint -->
     </footer>
   </div>
 </body>
