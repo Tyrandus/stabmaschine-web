@@ -29,6 +29,9 @@ window.onload = function () {
       },
       addRod: function () {
         this.rods.push({ sliceCount: 0 })
+        let main = document.querySelector('main')
+        let addButton = document.querySelector('.addRod-button-wrapper')
+        main.scrollLeft = addButton.offsetLeft + addButton.getBoundingClientRect().width
       },
       removeRod: function (index) {
         if (index < this.rods.length) {

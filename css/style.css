@@ -173,6 +173,10 @@ main {
   border-bottom: 1rem solid var(--colRods);
 }
 
+.rod-index {
+  text-align: center;
+}
+
 .slice {
   width: var(--rodWidth);
   height: 2rem;
