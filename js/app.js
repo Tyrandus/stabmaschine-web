@@ -241,7 +241,7 @@ window.onload = function () {
   codeEditor = CodeMirror.fromTextArea(document.getElementById('editor'), {
     mode: 'javascript',
     lineNumbers: true,
-    theme: 'mdn-like',
+    theme: 'ambiance',
     lineWrapping: true
   })
 

@@ -28,7 +28,7 @@ body {
   --colError: #a90000;
 
   --rodWidth: 160px;
-  --rodHeight: 50vh;
+  --rodHeight: 80%;
   --editorWidth: 30vw;
   --editorFontSize: 16px;
 
@@ -44,18 +44,18 @@ body {
   grid-template-rows: auto 1fr auto;
   grid-template-columns: calc(100vw - var(--editorWidth)) var(--editorWidth);
   grid-template-areas:
-    "header header" "main editor" "footer footer";
-}
-
-header, footer {
-  text-align: center;
-  background: var(--colPrimary);
-  color: var(--colLight);
-  padding: 1rem;
+    "header aside" "main aside" "footer footer";
 }
 
 header {
-  grid-area: header;
+  padding: 2rem 0 0 4rem;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: var(--colPrimary);
+  color: var(--colWhite);
 }
 
 footer {
@@ -142,21 +142,21 @@ footer a:visited {
 }
 
 main {
+  display: grid;
   grid-area: main;
+  grid-template-columns: repeat(100, 1fr);
+  padding: 4rem;
   width: calc(100vw - var(--editorWidth));
   height: 100%;
   max-height: 100%;
   overflow-x: scroll;
-  grid-area: main;
-  display: grid;
-  grid-template-columns: repeat(100, 1fr);
-  padding: 4rem;
 }
 
 .rod-wrapper {
   margin: 0 .5rem;
   padding: .5rem;
   position: relative;
+  height: auto;
 }
 
 .rod-wrapper.active {
@@ -166,7 +166,6 @@ main {
 .rod {
   width: var(--rodWidth);
   height: var(--rodHeight);
-  max-height: 90%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -203,7 +202,6 @@ main {
 button, kbd {
   display: inline-block;
   padding: .5rem 1rem;
-  margin: 2px 0;
   border: 2px solid var(--colButton);
   color: var(--colButton);
   background-color: var(--colWhite);
@@ -247,22 +245,22 @@ button.addRod {
   line-height: 12px;
 }
 
-.editor {
-  grid-area: editor;
-  padding: 2rem;
-  background: var(--colLight);
-  height: 100%;
+aside {
+  grid-area: aside;
+  display: flex;
+  flex-direction: column;
   max-height: 100%;
   overflow-y: scroll;
+  background: var(--colLight);
+  border-left: none;
+  border-right: none;
 }
 
-.editor h2 {
-  margin-bottom: .5rem;
-}
-
-.editor .runButton {
-  margin-top: .5rem;
-  margin-bottom: 2rem;
+aside .runButton {
+  width: 100%;
+  border-left-width: 6px;
+  background: var(--colButton);
+  color: var(--colWhite);
 }
 
 .CodeMirror {
@@ -271,14 +269,13 @@ button.addRod {
 
 .editor .CodeMirror-wrap {
   display: block;
-  height: 40vh;
+  min-height: 60vh;
+  flex-grow: 1;
 }
 
 .notification {
-  margin: .5rem 0;
   padding: .5rem;
   background: var(--colWhite);
-  box-shadow: var(--shadow);
 }
 
 .error {
@@ -296,8 +293,34 @@ button.addRod {
 }
 
 .success {
-  border: 2px solid var(--colPrimary);
-  color: var(--colPrimary);
+  color: var(--colWhite);
+  background: var(--colPrimary);
 }
 
+/* TODO: Find solution for messages */
+/* TODO: Decide for one colour theme */
 /* TODO: Hide unnecessary parts on the mobile page */
+
+@media screen and (max-width: 800px),
+       screen and (orientation: portrait) {
+
+  #app {
+    display: flex;
+    flex-direction: column;
+  }
+
+  aside.editor .CodeMirror-wrap,
+  aside .runButton {
+    display: none;
+  }
+
+  aside {
+    background: transparent;
+    overflow: visible;
+    padding-bottom: 0;
+  }
+
+  main {
+    width: 100vw;
+  }
+}

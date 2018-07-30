@@ -13,6 +13,7 @@
 
   <link rel="stylesheet" href="css/codemirror.css">
   <link rel="stylesheet" href="css/codemirror-mdn-like.css">
+  <link rel="stylesheet" href="css/codemirror-ambiance.css">
   <link rel="stylesheet" href="css/style.css">
 
 </head>
@@ -22,6 +23,13 @@
       <h1>Stabmaschine</h1>
       <p>Repräsentation der natürlichen Zahlen</p>
     </header>
+
+    <aside class="editor">
+      <textarea id="editor"></textarea>
+      <button @click="runCode()" class="runButton">Ausführen</button>
+      <p v-if="isComputationSuccessful" class="notification success">Algorithmus erfolgreich beendet!</p>
+      <p v-for="errorMessage in errorMessages" class="notification error" v-html="errorMessage"></p>
+    </aside>
 
     <section v-bind:class="{ active: isManualActive, 'info-popup': true }">
       <article class="shortcut-instruction">
@@ -147,15 +155,6 @@ while (!isEmpty(1)) {
         <button @click="addRod" class="addRod">&#10010;</button>
       </section>
     </main>
-
-    <aside class="editor">
-      <h2>Algorithmus</h2>
-      <textarea id="editor"></textarea>
-
-      <p v-if="isComputationSuccessful" class="notification success">Algorithmus erfolgreich beendet!</p>
-      <p v-for="errorMessage in errorMessages" class="notification error" v-html="errorMessage"></p>
-      <button @click="runCode()" class="runButton">Ausführen</button>
-    </aside>
 
     <footer>
       &copy; {{ currentYear }} Florian Knoch - <a href="#" @click="showManual()">Bedienungshinweise</a>
