@@ -8,6 +8,7 @@ window.onload = function () {
       errorMessages: [],
       isComputationSuccessful: false,
       isManualActive: false,
+      editorFontSize: 16,
       rods: [
         { sliceCount: 0 },
         { sliceCount: 0 },
@@ -42,11 +43,32 @@ window.onload = function () {
           }
         }
       },
+      increaseEditorFontSize: function () {
+        this.editorFontSize += 2
+        document.body.style.setProperty('--editorFontSize', `${this.editorFontSize}px`)
+      },
+      decreaseEditorFontSize: function () {
+        if (this.editorFontSize > 12) this.editorFontSize -= 2
+        document.body.style.setProperty('--editorFontSize', `${this.editorFontSize}px`)
+      },
+
       keyPressed: function (event) {
         if (event.target.nodeName === "TEXTAREA") {
-          if (event.key == 'r' && event.ctrlKey) {
-            event.preventDefault()
-            this.runCode()
+          if (event.ctrlKey) {
+            switch (event.key) {
+              case 'r':
+                event.preventDefault()
+                this.runCode()
+                return
+              case '+':
+                event.preventDefault()
+                this.increaseEditorFontSize()
+                return
+              case '-':
+                event.preventDefault()
+                this.decreaseEditorFontSize()
+                return
+            }
           }
         } else {
           switch (event.key) {
