@@ -179,7 +179,7 @@ window.onload = function () {
 
         function parseNextExpression (expressions) {
           if (expressions.length == 0) {
-            v.isComputingSuccessful = true
+            v.isComputationSuccessful = true
             codeEditor.options.readOnly = false
             return
           }
