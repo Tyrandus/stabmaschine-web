@@ -145,6 +145,8 @@ footer a:visited {
 main {
   grid-area: main;
   width: calc(100vw - var(--editorWidth));
+  height: 100%;
+  max-height: 100%;
   overflow-x: scroll;
   grid-area: main;
   display: grid;
@@ -273,13 +275,16 @@ button.addRod {
   height: 40vh;
 }
 
-.error {
+.notification {
   margin: .5rem 0;
   padding: .5rem;
-  border: 2px solid var(--colError);
-  color: var(--colError);
   background: var(--colWhite);
   box-shadow: var(--shadow);
+}
+
+.error {
+  border: 2px solid var(--colError);
+  color: var(--colError);
 }
 
 .error:before {
@@ -290,3 +295,10 @@ button.addRod {
   font-size: 1.2rem;
   line-height: 1.5rem;
 }
+
+.success {
+  border: 2px solid var(--colPrimary);
+  color: var(--colPrimary);
+}
+
+/* TODO: Hide unnecessary parts on the mobile page */

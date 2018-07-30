@@ -101,6 +101,7 @@ while (!isEmpty(1)) {
   add(2)
 }
         </textarea>
+        <!-- TODO: Add copying to clipboard -->
 
         <script>
         codeEditor = CodeMirror.fromTextArea(document.getElementById('editor-sample-algorithm'), {
@@ -146,7 +147,8 @@ while (!isEmpty(1)) {
       <h2>Algorithmus</h2>
       <textarea id="editor"></textarea>
 
-      <p v-for="errorMessage in errorMessages" class="error" v-html="errorMessage"></p>
+      <p v-if="isComputationSuccessful" class="notification success">Algorithmus erfolgreich beendet!</p>
+      <p v-for="errorMessage in errorMessages" class="notification error" v-html="errorMessage"></p>
       <button @click="runCode()" class="runButton">Ausführen</button>
     </aside>
 

@@ -6,6 +6,7 @@ window.onload = function () {
     data: {
       activeRodIndex: 0,
       errorMessages: [],
+      isComputationSuccessful: false,
       isManualActive: false,
       rods: [
         { sliceCount: 0 },
@@ -42,7 +43,6 @@ window.onload = function () {
         }
       },
       keyPressed: function (event) {
-        // TODO: Check for consistency throughout the OSs
         if (event.target.nodeName === "TEXTAREA") {
           if (event.key == 'r' && event.ctrlKey) {
             event.preventDefault()
@@ -95,9 +95,11 @@ window.onload = function () {
         this.isManualActive = true
       },
       runCode: function () {
-        this.errorMessages = [];
+        this.errorMessages = []
+        this.isComputationSuccessful = false
+        codeEditor.options.readOnly = true
 
-        let code = codeEditor.getValue();
+        let code = codeEditor.getValue()
         let context = this
         let expressions = []
 
@@ -150,12 +152,16 @@ window.onload = function () {
         } catch (e) {
           this.errorMessages = []
           this.errorMessages.push(e.message || e)
+          codeEditor.options.readOnly = false
         }
 
-        // TODO: Make algorithm panel invisible
-
         function parseNextExpression (expressions) {
-          if (expressions.length == 0) return;
+          if (expressions.length == 0) {
+            v.isComputingSuccessful = true
+            codeEditor.options.readOnly = false
+            return
+          }
+
           expression = expressions.shift()
 
           switch (expression.action) {
