@@ -164,6 +164,10 @@ window.onload = function () {
         }
 
         function isEmpty (arg) {
+          if (Date.now() - executionStartTime > ENDLESS_LOOP_THRESHOLD) {
+            throw 'Der Algorithmus benötigt sehr viel Zeit und wurde gestoppt. Eventuell liegt eine Endlosschleife vor.'
+          }
+
           return isEmpty_global(arg - 1, phantom)
         }
 
