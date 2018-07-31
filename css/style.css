@@ -17,15 +17,14 @@
 }
 
 body {
-  --colPrimary: rgb(32, 45, 150);
+  --colPrimary: rgb(0, 142, 224);
   --colLight: #e2e2e2;
   --colRods: #979797;
-  --colSlices: rgb(0, 142, 224);
   --colInfoPopupBackground: #eeeeee;
-  --colButton: rgb(0, 142, 224);
-  --colHighlight: rgb(127, 203, 247);
   --colWhite: white;
-  --colError: #a90000;
+  --colError: #ff3131;
+  --colEditorBackground: #202020;
+  --colEditorForeground: #404040;
 
   --rodWidth: 160px;
   --rodHeight: 80%;
@@ -33,9 +32,12 @@ body {
   --editorFontSize: 16px;
 
   --shadow: 0 8px 7px -5px rgba(0, 0, 0, .2);
+  --shadowEditor: 0 -10px 20px black;
+  --shadowPopup: 0 20px 10px -10px rgba(0, 0, 0, .2);
 
   height: 100vh;
   font-family: "Open Sans";
+  font-size: 14px;
 }
 
 #app {
@@ -44,7 +46,7 @@ body {
   grid-template-rows: auto 1fr auto;
   grid-template-columns: calc(100vw - var(--editorWidth)) var(--editorWidth);
   grid-template-areas:
-    "header aside" "main aside" "footer footer";
+    "header aside" "main aside" "footer aside";
 }
 
 header {
@@ -52,13 +54,7 @@ header {
 }
 
 footer {
-  text-align: center;
-  padding: 1rem;
-  background: var(--colPrimary);
-  color: var(--colWhite);
-}
-
-footer {
+  padding: 1rem 1rem 1rem 4rem;
   grid-area: footer;
 }
 
@@ -66,7 +62,7 @@ footer a:link,
 footer a:hover,
 footer a:active,
 footer a:visited {
-  color: var(--colWhite);
+  color: var(--colPrimary);
 }
 
 .info-popup {
@@ -83,7 +79,7 @@ footer a:visited {
   overflow-y: scroll;
   padding: 2rem;
   background: var(--colInfoPopupBackground);
-  box-shadow: 0 20px 10px -10px rgba(0, 0, 0, .2);
+  box-shadow: var(--shadowPopup);
 }
 
 .curtain {
@@ -149,7 +145,7 @@ main {
   width: calc(100vw - var(--editorWidth));
   height: 100%;
   max-height: 100%;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .rod-wrapper {
@@ -160,7 +156,7 @@ main {
 }
 
 .rod-wrapper.active {
-  box-shadow: 0 0 15px var(--colHighlight);
+  box-shadow: 0 0 5px var(--colPrimary);
 }
 
 .rod {
@@ -181,7 +177,7 @@ main {
   width: var(--rodWidth);
   height: 2rem;
   margin-bottom: 4px;
-  background: var(--colSlices);
+  background: var(--colPrimary);
 }
 
 .actions {
@@ -200,10 +196,11 @@ main {
 }
 
 button, kbd {
+  font-family: "Open Sans";
   display: inline-block;
   padding: .5rem 1rem;
-  border: 2px solid var(--colButton);
-  color: var(--colButton);
+  border: 2px solid var(--colPrimary);
+  color: var(--colPrimary);
   background-color: var(--colWhite);
   box-shadow: var(--shadow);
   font-weight: bold;
@@ -250,7 +247,6 @@ aside {
   display: flex;
   flex-direction: column;
   max-height: 100%;
-  overflow-y: scroll;
   background: var(--colLight);
   border-left: none;
   border-right: none;
@@ -259,7 +255,7 @@ aside {
 aside .runButton {
   width: 100%;
   border-left-width: 6px;
-  background: var(--colButton);
+  background: var(--colPrimary);
   color: var(--colWhite);
 }
 
@@ -269,36 +265,30 @@ aside .runButton {
 
 .editor .CodeMirror-wrap {
   display: block;
+  border-top: 2rem solid var(--colPrimary);
   min-height: 60vh;
   flex-grow: 1;
 }
 
 .notification {
-  padding: .5rem;
-  background: var(--colWhite);
-}
-
-.error {
-  border: 2px solid var(--colError);
-  color: var(--colError);
+  position: relative;
+  padding: 1rem;
+  padding-left: 2.5rem;
+  background: var(--colEditorForeground);
+  color: var(--colWhite);
+  overflow: hidden;
 }
 
 .error:before {
   content: "⚠";
-  padding: 0 .5rem;
+  padding: 0 .5rem 0 0;
+  color: var(--colError);
   font-family: monospace;
   font-weight: bold;
   font-size: 1.2rem;
   line-height: 1.5rem;
 }
 
-.success {
-  color: var(--colWhite);
-  background: var(--colPrimary);
-}
-
-/* TODO: Find solution for messages */
-/* TODO: Decide for one colour theme */
 /* TODO: Hide unnecessary parts on the mobile page */
 
 @media screen and (max-width: 800px),
