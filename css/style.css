@@ -39,6 +39,7 @@ body {
   height: 100vh;
   font-family: "Open Sans";
   font-size: 14px;
+  background: var(--colInfoPopupBackground);
 }
 
 #app {
@@ -319,5 +320,25 @@ aside .runButton {
 
   .rod-wrapper.active {
     box-shadow: none;
+  }
+
+  .info-popup {
+    max-width: 90vw;
+    padding: 2rem;
+  }
+
+  .info-popup ul {
+    padding-left: 0;
+  }
+
+  .shortcut-instruction,
+  .algorithm-panel-instruction {
+    display: none;
+  }
+
+  .info-popup article.editor-instruction {
+    margin: 0;
+    padding-bottom: 2rem;
+    border-bottom: none;
   }
 }
