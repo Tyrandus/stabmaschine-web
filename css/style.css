@@ -301,18 +301,23 @@ aside .runButton {
     flex-direction: column;
   }
 
-  aside.editor .CodeMirror-wrap,
-  aside .runButton {
-    display: none;
+  main, header, footer {
+    padding: 1rem;
+  }
+
+  header, footer {
+    text-align: center;
   }
 
   aside {
-    background: transparent;
-    overflow: visible;
-    padding-bottom: 0;
+    display: none;
   }
 
   main {
     width: 100vw;
+  }
+
+  .rod-wrapper.active {
+    box-shadow: none;
   }
 }
