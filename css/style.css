@@ -39,7 +39,6 @@ body {
   height: 100vh;
   font-family: "Open Sans";
   font-size: 14px;
-  background: var(--colInfoPopupBackground);
 }
 
 #app {
