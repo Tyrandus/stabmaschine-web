@@ -287,7 +287,6 @@ aside .runButton {
   padding: 0 .5rem 0 0;
   color: var(--colError);
   font-family: monospace;
-  font-weight: bold;
   font-size: 1.2rem;
   line-height: 1.5rem;
 }
