@@ -28,7 +28,7 @@ body {
 
   --rodWidth: 160px;
   --rodHeight: 50vh;
-  --rodWrapperHeight: 70vh;
+  --rodWrapperHeight: calc(var(--rodHeight) + 7rem);
   --editorWidth: 30vw;
   --editorFontSize: 16px;
 
@@ -44,7 +44,7 @@ body {
 #app {
   height: 100vh;
   display: grid;
-  grid-template-rows: 5rem calc(100vh - 8rem) 3rem;
+  grid-template-rows: 5rem calc(100vh - 9rem) 4rem;
   grid-template-columns: calc(100vw - var(--editorWidth)) var(--editorWidth);
   grid-template-areas:
     "header aside" "main aside" "footer aside";
@@ -150,7 +150,7 @@ main {
 }
 
 .rod-wrapper {
-  margin: 0 .5rem;
+  margin: auto .5rem;
   padding: .5rem;
   height: var(--rodWrapperHeight);
   max-height: var(--rodWrapperHeight);
