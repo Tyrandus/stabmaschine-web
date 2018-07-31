@@ -57,7 +57,6 @@ window.onload = function () {
           if (event.ctrlKey) {
             switch (event.key) {
               case 'r':
-                // TODO: Not working in Chrome
                 event.preventDefault()
                 this.runCode()
                 return
@@ -206,6 +205,9 @@ window.onload = function () {
           parseNextExpression(expressions)
         }
       }
+    },
+    mounted: function () {
+      document.getElementById('app').focus()
     }
   })
 
@@ -245,6 +247,4 @@ window.onload = function () {
     theme: 'ambiance',
     lineWrapping: true
   })
-
-  document.addEventListener('keypress', v.keyPressed)
 }
