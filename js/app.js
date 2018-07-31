@@ -53,8 +53,8 @@ window.onload = function () {
       },
 
       keyPressed: function (event) {
-        document.body.innerHTML += JSON.stringify(event.target.classList)
-        if (event.target.nodeName === "TEXTAREA") {
+        if (event.target.nodeName === "TEXTAREA" ||
+            Array.from(event.target.classList).filter(x => x.indexOf('CodeMirror') > -1).length > 0) {
           if (event.ctrlKey) {
             switch (event.key) {
               case 'r':
