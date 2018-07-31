@@ -53,7 +53,7 @@ window.onload = function () {
       },
 
       keyPressed: function (event) {
-        document.body.innerHTML += event.target.nodeName
+        document.body.innerHTML += JSON.stringify(event.target)
         if (event.target.nodeName === "TEXTAREA") {
           if (event.ctrlKey) {
             switch (event.key) {
