@@ -145,7 +145,7 @@ while (!isEmpty(1)) {
           <button @click="add(index)" class="rightButton">&#10010;</button>
         </div>
 
-        <button v-if="index == activeRodIndex" @click="removeRod(index)" class="removeRod">&#10008;</button>
+        <button @click="removeRod(index)" class="removeRod">&#10008;</button>
 
         <p class="rod-index">{{ index + 1 }}</p>
       </section>

@@ -162,6 +162,10 @@ main {
   box-shadow: 0 0 5px var(--colPrimary);
 }
 
+.rod-wrapper:not(.active) button.removeRod {
+  opacity: 0;
+}
+
 .rod {
   width: var(--rodWidth);
   height: var(--rodHeight);
@@ -319,6 +323,10 @@ aside .runButton {
 
   .rod-wrapper.active {
     box-shadow: none;
+  }
+
+  .rod-wrapper:not(.active) button.removeRod {
+    opacity: 1;
   }
 
   .info-popup {
