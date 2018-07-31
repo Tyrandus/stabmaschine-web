@@ -27,7 +27,8 @@ body {
   --colEditorForeground: #404040;
 
   --rodWidth: 160px;
-  --rodHeight: 80%;
+  --rodHeight: 50vh;
+  --rodWrapperHeight: 70vh;
   --editorWidth: 30vw;
   --editorFontSize: 16px;
 
@@ -151,6 +152,8 @@ main {
 .rod-wrapper {
   margin: 0 .5rem;
   padding: .5rem;
+  height: var(--rodWrapperHeight);
+  max-height: var(--rodWrapperHeight);
   position: relative;
   height: auto;
 }
