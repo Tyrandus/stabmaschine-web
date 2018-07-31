@@ -44,7 +44,7 @@ body {
 #app {
   height: 100vh;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 5rem calc(100vh - 8rem) 3rem;
   grid-template-columns: calc(100vw - var(--editorWidth)) var(--editorWidth);
   grid-template-areas:
     "header aside" "main aside" "footer aside";
