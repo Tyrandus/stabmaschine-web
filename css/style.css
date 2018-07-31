@@ -306,8 +306,16 @@ aside .runButton {
        screen and (orientation: portrait) {
 
   #app {
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
+  }
+
+  #app {
+    height: 200vh;
+    display: grid;
+    grid-template-rows: 5rem calc(100vh - 9rem) 4rem 100vh;
+    grid-template-columns: 1fr;
+    grid-template-areas: "header" "main" "footer" "aside";
   }
 
   main, header, footer {
@@ -319,7 +327,11 @@ aside .runButton {
   }
 
   aside {
-    display: none;
+    flex-direction: column-reverse
+  }
+
+  aside.editor .CodeMirror-wrap {
+    border-top: none;
   }
 
   main {
@@ -341,16 +353,5 @@ aside .runButton {
 
   .info-popup ul {
     padding-left: 0;
-  }
-
-  .shortcut-instruction,
-  .algorithm-panel-instruction {
-    display: none;
-  }
-
-  .info-popup article.editor-instruction {
-    margin: 0;
-    padding-bottom: 2rem;
-    border-bottom: none;
   }
 }
