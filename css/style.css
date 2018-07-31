@@ -300,8 +300,6 @@ aside .runButton {
   line-height: 1.5rem;
 }
 
-/* TODO: Hide unnecessary parts on the mobile page */
-
 @media screen and (max-width: 800px),
        screen and (orientation: portrait) {
 
@@ -353,5 +351,13 @@ aside .runButton {
 
   .info-popup ul {
     padding-left: 0;
+  }
+
+  .info-popup .shortcut-instruction {
+    display: none;
+  }
+
+  .info-popup .shortcut-instruction + .editor-instruction {
+    margin-top: 0;
   }
 }
