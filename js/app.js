@@ -172,7 +172,9 @@ window.onload = function () {
           return isEmpty_global(arg - 1, phantom)
         }
 
-        code = code.replace(/((NOT)|(not)|(Not))[\t\n]*/, '!')
+        code = code.replace(/((NOT)|(not)|(Not))[\t\n]*/g, '!')
+        code = code.replace(/isEmpty\?/g, 'isEmpty')
+
         try {
           executionStartTime = Date.now()
           eval(code)
